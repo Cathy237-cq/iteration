@@ -381,11 +381,11 @@ display: none;
 <pre class="r"><code>x_vec = rnorm(n = 25, mean =10, sd = 3.5)
 
 (x_vec - mean(x_vec)) / sd(x_vec)</code></pre>
-<pre><code>##  [1] -1.31881341  0.53969439  1.17761055 -0.38849457  0.07827170  0.12895977
-##  [7]  0.75214794 -1.07978168 -0.15121816  0.40630420  0.46083827 -0.30761407
-## [13]  1.38958072  1.37011440 -1.04112512 -1.23032069 -1.74030190  0.43057508
-## [19] -1.54012738  0.62365455  1.15326888  1.14593658  0.73512535  0.02357726
-## [25] -1.61786267</code></pre>
+<pre><code>##  [1] -1.1067343 -0.6125686 -1.5304730 -0.5593920 -0.4034118  0.4964468
+##  [7]  1.0817735  1.2303204 -0.8448897 -0.3411387  2.2500472 -0.2158011
+## [13]  1.4139228 -0.5993056 -0.7443186  1.1776200  1.2412726 -0.6372621
+## [19] -0.5997814 -0.3798455 -0.1936649 -1.4399364  0.7179247 -0.4607083
+## [25]  1.0599040</code></pre>
 <p>now, i’ll write a funciton to do this</p>
 <pre class="r"><code>z_score = function(x){
   
@@ -402,22 +402,22 @@ display: none;
 }
 
 z_score(x = x_vec) #put every x i find in the fucntion, to x_vec</code></pre>
-<pre><code>##  [1] -1.31881341  0.53969439  1.17761055 -0.38849457  0.07827170  0.12895977
-##  [7]  0.75214794 -1.07978168 -0.15121816  0.40630420  0.46083827 -0.30761407
-## [13]  1.38958072  1.37011440 -1.04112512 -1.23032069 -1.74030190  0.43057508
-## [19] -1.54012738  0.62365455  1.15326888  1.14593658  0.73512535  0.02357726
-## [25] -1.61786267</code></pre>
+<pre><code>##  [1] -1.1067343 -0.6125686 -1.5304730 -0.5593920 -0.4034118  0.4964468
+##  [7]  1.0817735  1.2303204 -0.8448897 -0.3411387  2.2500472 -0.2158011
+## [13]  1.4139228 -0.5993056 -0.7443186  1.1776200  1.2412726 -0.6372621
+## [19] -0.5997814 -0.3798455 -0.1936649 -1.4399364  0.7179247 -0.4607083
+## [25]  1.0599040</code></pre>
 <p>does this always work?</p>
 <pre class="r"><code>z_score(x = 3) #cannot do with only 1 number</code></pre>
 <pre><code>## Error in z_score(x = 3): you need at least 5 numbers to compute the z score</code></pre>
 <pre class="r"><code>z_score(x = c(&quot;My&quot;, &quot;Name&quot;, &quot;is&quot;, &quot;Cathy&quot;)) # cannot apply characteristic</code></pre>
 <pre><code>## Error in z_score(x = c(&quot;My&quot;, &quot;Name&quot;, &quot;is&quot;, &quot;Cathy&quot;)): x need to be numeric</code></pre>
 <pre class="r"><code>z_score(x = x_vec)</code></pre>
-<pre><code>##  [1] -1.31881341  0.53969439  1.17761055 -0.38849457  0.07827170  0.12895977
-##  [7]  0.75214794 -1.07978168 -0.15121816  0.40630420  0.46083827 -0.30761407
-## [13]  1.38958072  1.37011440 -1.04112512 -1.23032069 -1.74030190  0.43057508
-## [19] -1.54012738  0.62365455  1.15326888  1.14593658  0.73512535  0.02357726
-## [25] -1.61786267</code></pre>
+<pre><code>##  [1] -1.1067343 -0.6125686 -1.5304730 -0.5593920 -0.4034118  0.4964468
+##  [7]  1.0817735  1.2303204 -0.8448897 -0.3411387  2.2500472 -0.2158011
+## [13]  1.4139228 -0.5993056 -0.7443186  1.1776200  1.2412726 -0.6372621
+## [19] -0.5997814 -0.3798455 -0.1936649 -1.4399364  0.7179247 -0.4607083
+## [25]  1.0599040</code></pre>
 </div>
 <div id="new-fucntion" class="section level2">
 <h2>New fucntion!</h2>
@@ -441,7 +441,7 @@ mean_and_sd(x_vec)</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  9.83  3.20</code></pre>
+## 1  9.45  3.04</code></pre>
 </div>
 <div id="check-stuff-using-a-simulation" class="section level2">
 <h2>Check stuff using a simulation</h2>
@@ -458,7 +458,7 @@ sim_df |&gt;
 <pre><code>## # A tibble: 1 × 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  9.47  3.78</code></pre>
+## 1  10.3  5.70</code></pre>
 <p>Simulation function rto check samole mean and sd.</p>
 <pre class="r"><code>sim_mean_sd = function(samp_size=30, true_mean=16, true_sd=4){
   
@@ -480,17 +480,17 @@ sim_mean_sd(samp_size=30, true_mean=4, true_sd=12) #can be put in different orde
 <pre><code>## # A tibble: 1 × 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  3.49  13.6</code></pre>
+## 1  5.81  13.0</code></pre>
 <pre class="r"><code>sim_mean_sd(30,16,2) #can also run successfully</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  16.2  1.88</code></pre>
+## 1  15.9  1.94</code></pre>
 <pre class="r"><code>sim_mean_sd(300) #can default in the function part, and rewrite another number.</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  15.9  3.76</code></pre>
+## 1  16.2  3.83</code></pre>
 <p>##Revisit LoTR words</p>
 <pre class="r"><code>fellowship_df =
   readxl::read_excel(&quot;data/LotR_Words.xlsx&quot;,range = &quot;B3:D6&quot;) |&gt; 
@@ -565,13 +565,37 @@ heroin_table=
     html_table() |&gt; 
     nth(table_num) |&gt; 
     slice(-1) |&gt; 
-    mutate(drug = table_name)
+    mutate(drug = table_name) |&gt; 
+    select(-contains(&quot;P Value&quot;))
 
   
   return(out_table)
   
 }
 
+  bind_rows(
+    nsduh_table_format (nsduh_html, 1, &quot;marj&quot;),
+    nsduh_table_format (nsduh_html, 4, &quot;cocaine&quot;),
+    nsduh_table_format (nsduh_html, 5, &quot;heroin&quot;)
+  )</code></pre>
+<pre><code>## # A tibble: 168 × 12
+##    State `12+(2013-2014)` `12+(2014-2015)` `12-17(2013-2014)` `12-17(2014-2015)`
+##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;             
+##  1 Tota… 12.90a           13.36            13.28b             12.86             
+##  2 Nort… 13.88a           14.66            13.98              13.51             
+##  3 Midw… 12.40b           12.76            12.45              12.33             
+##  4 South 11.24a           11.64            12.02              11.88             
+##  5 West  15.27            15.62            15.53a             14.43             
+##  6 Alab… 9.98             9.60             9.90               9.71              
+##  7 Alas… 19.60a           21.92            17.30              18.44             
+##  8 Ariz… 13.69            13.12            15.12              13.45             
+##  9 Arka… 11.37            11.59            12.79              12.14             
+## 10 Cali… 14.49            15.25            15.03              14.11             
+## # ℹ 158 more rows
+## # ℹ 7 more variables: `18-25(2013-2014)` &lt;chr&gt;, `18-25(2014-2015)` &lt;chr&gt;,
+## #   `26+(2013-2014)` &lt;chr&gt;, `26+(2014-2015)` &lt;chr&gt;, `18+(2013-2014)` &lt;chr&gt;,
+## #   `18+(2014-2015)` &lt;chr&gt;, drug &lt;chr&gt;</code></pre>
+<pre class="r"><code>source(&quot;source/nsduh_table_format.R&quot;)
   bind_rows(
     nsduh_table_format (nsduh_html, 1, &quot;marj&quot;),
     nsduh_table_format (nsduh_html, 4, &quot;cocaine&quot;),

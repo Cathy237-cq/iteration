@@ -207,7 +207,8 @@ nsduh_table_format = function(html, table_num, table_name){
     html_table() |> 
     nth(table_num) |> 
     slice(-1) |> 
-    mutate(drug = table_name)
+    mutate(drug = table_name) |> 
+    select(-contains("P Value"))
 
   
   return(out_table)
@@ -221,5 +222,29 @@ nsduh_table_format = function(html, table_num, table_name){
   )
 
 ```
+
+```{r}
+source("source/nsduh_table_format.R")
+  bind_rows(
+    nsduh_table_format (nsduh_html, 1, "marj"),
+    nsduh_table_format (nsduh_html, 4, "cocaine"),
+    nsduh_table_format (nsduh_html, 5, "heroin")
+  )
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
