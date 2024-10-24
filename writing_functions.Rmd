@@ -47,5 +47,179 @@ z_score(x = c("My", "Name", "is", "Cathy")) # cannot apply characteristic
 z_score(x = x_vec)
 ```
 
+## New fucntion!
+
+```{r}
+mean_and_sd = function(x){
+  
+   mean_x = mean(x)
+   sd_x = sd(x)
+   
+   out_df = 
+     tibble(
+       mean =mean_x,
+       sd = sd_x
+     )
+  
+  return(out_df)
+  
+  
+}
+
+mean_and_sd(x_vec)
+```
+
+
+## Check stuff using a simulation
+
+```{r}
+sim_df = 
+  tibble(
+    x = rnorm(30, 10, 5)
+  )
+
+sim_df |> 
+  summarize(
+  mean = mean(x),
+  sd = sd(x)
+)
+```
+
+
+Simulation function rto check samole mean and sd.
+
+```{r}
+sim_mean_sd = function(samp_size=30, true_mean=16, true_sd=4){
+  
+  sim_df = 
+  tibble(
+    x = rnorm(samp_size, true_mean, true_sd)
+  )
+
+  out_df= 
+   sim_df |> 
+   summarize(
+   mean = mean(x),
+   sd = sd(x)
+   )
+  
+  return(out_df)
+}
+sim_mean_sd(samp_size=30, true_mean=4, true_sd=12) #can be put in different order
+
+sim_mean_sd(30,16,2) #can also run successfully
+
+sim_mean_sd(300) #can default in the function part, and rewrite another number.
+```
+
+
+##Revisit LoTR words
+
+```{r}
+fellowship_df =
+  readxl::read_excel("data/LotR_Words.xlsx",range = "B3:D6") |> 
+  mutate(move = "fellowship") |> 
+  janitor::clean_names()
+
+two_towers__df =
+  readxl::read_excel("data/LotR_Words.xlsx",range = "F3:H6") |> 
+  mutate(move = "two_towers") |> 
+  janitor::clean_names()
+
+return_king_df =
+  readxl::read_excel("data/LotR_Words.xlsx",range = "J3:L6") |> 
+  mutate(move = "return_king") |> 
+  janitor::clean_names()
+
+```
+
+using function to do the same thing.
+focus on which part need to be change, put into function
+
+```{r}
+lotr_import = function(cell_range, movie_title){
+  
+  movie_df =
+    readxl::read_excel("data/LotR_Words.xlsx",range = cell_range) |> 
+    mutate(movie = movie_title) |> 
+    janitor::clean_names() |> 
+    pivot_longer(
+      female:male,
+      names_to = "sex",
+      values_to = "words"
+    ) |> 
+    select(movie, everything())
+  
+  return(movie_df)
+  
+}
+
+lotr_df = 
+  bind_rows(
+    lotr_import("B3:D6", "fellowship"),
+    lotr_import("F3:H6", "two_towers"),
+    lotr_import("J3:L6", "return_king")
+)
+
+```
+
+
+##NSDUH
+
+```{r}
+nsduh_url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+
+nsduh_html = read_html(nsduh_url)
+
+marj_table= 
+ nsduh_html |> 
+  html_table() |> 
+  nth(4) |> 
+  slice(-1) |> 
+  mutate(drug = "marj")
+  
+cocaine_table= 
+ nsduh_html |> 
+  html_table() |> 
+  nth(4) |> 
+  slice(-1) |> 
+  mutate(drug = "cocaine")
+  
+heroin_table= 
+ nsduh_html |> 
+  html_table() |> 
+  nth(4) |> 
+  slice(-1) |> 
+  mutate(drug = "heroin")
+
+
+```
+
+
+Write function to do this in a simpler way
+
+```{r}
+nsduh_table_format = function(html, table_num, table_name){
+  
+  out_table =
+    nsduh_html|> #here, the html is outside the R, need to find in website, 
+                 #so, it's better be specific in 'function'part
+    html_table() |> 
+    nth(table_num) |> 
+    slice(-1) |> 
+    mutate(drug = table_name)
+
+  
+  return(out_table)
+  
+}
+
+  bind_rows(
+    nsduh_table_format (nsduh_html, 1, "marj"),
+    nsduh_table_format (nsduh_html, 4, "cocaine"),
+    nsduh_table_format (nsduh_html, 5, "heroin")
+  )
+
+```
 
 
