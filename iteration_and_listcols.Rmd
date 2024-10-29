@@ -1,0 +1,101 @@
+---
+title: "iteration_and_listcols"
+author: "cathy"
+date: "2024-10-29"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+```
+
+## here's some lists
+
+```{r}
+l = list(
+  vec_number = 1:4,
+  unif_sample = runif(100),
+  mat = matrix(1:8, nrow = 2, ncol = 4, byrow = TRUE),
+  summary = summary(rnorm(1000))
+)
+
+l
+
+l$mat
+
+l[["mat"]][1,3]
+
+l[[4]]
+```
+
+
+make a list
+
+```{r}
+list_norm = 
+  list(
+  a = rnorm(20, 0, 5),
+  b = rnorm(20, 4, 5),
+  c = rnorm(20, 0, 10),
+  d = rnorm(20, 4, 10)
+)
+
+list_norm[["b"]]
+```
+
+
+```{r}
+mean_and_sd = function(x){
+  
+   mean_x = mean(x)
+   sd_x = sd(x)
+   
+   out_df = 
+     tibble(
+       mean =mean_x,
+       sd = sd_x
+     )
+  
+  return(out_df)
+  
+}
+
+```
+
+
+```{r}
+mean_and_sd(list_norm[["a"]])
+mean_and_sd(list_norm[["b"]])
+mean_and_sd(list_norm[["c"]])
+mean_and_sd(list_norm[["d"]])
+```
+
+
+## Use a for loop
+
+```{r}
+output =vector("list", length = 4)
+
+for (i in 1:4){
+   
+  output[[i]] = mean_and_sd(list_norm[[i]])
+  
+}
+
+ output
+```
+
+
+## Do the same thing
+but with a 'map' instead
+```{r}
+map(list_norm, mean_and_sd)
+map(list_norm, median)
+map(list_norm, IQR)
+```
+
+
+
+
+
